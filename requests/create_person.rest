@@ -1,0 +1,30 @@
+@name = Lillard
+@number = 95-87-827782
+
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "{{name}}",
+  "number": "{{number}}"
+}
+
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "number": "{{number}}"
+}
+
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "{{name}}"
+}

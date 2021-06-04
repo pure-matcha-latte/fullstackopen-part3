@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+app.use(express.json());
 
 let persons = require("./persons");
 
@@ -20,6 +21,30 @@ app.get("/api/persons/:id", (req, res) => {
   } else {
     res.status(404).end();
   }
+});
+
+const generateId = () => Math.floor(Math.random() * 1e6);
+
+app.post("/api/persons", (req, res) => {
+  const { name, number } = req.body;
+
+  if (!name) {
+    return res.status(400).json({ error: "The name is missing" });
+  }
+  if (!number) {
+    return res.status(400).json({ error: "The number is missing" });
+  }
+
+  const isPersonExist = persons.find((person) => person.name === name);
+  if (isPersonExist) {
+    return res
+      .status(400)
+      .json({ error: "The name already exists in the phonebook" });
+  }
+
+  const person = { id: generateId(), name, number };
+  persons = persons.concat(person);
+  res.json(person);
 });
 
 app.delete("/api/persons/:id", (req, res) => {
