@@ -3,6 +3,7 @@ const morgan = require("morgan");
 let persons = require("./persons");
 
 const app = express();
+app.use(express.static("build"));
 app.use(express.json());
 
 morgan.token("request-body", (req, res) =>
